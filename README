@@ -1,0 +1,3 @@
+Welcome to my implementation of a statsd client in Ruby!
+
+The main purpose for creating this repository is to learn about statsd and have a little fun in Ruby, we'll see if the client actually becomes usable at some point.
