@@ -3,8 +3,6 @@ rvm:
   - 2.2
   - 2.3
   - 2.4
-  - jruby
-  - rbx-2
 
 install:
   - bundle install --path vendor/bundle
