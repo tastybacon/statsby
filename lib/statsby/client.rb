@@ -3,9 +3,12 @@ require 'socket'
 module Statsby
   # Use a Statsby::Client to send metrics over UDP to a StatsD server
   class Client
+    DEFAULT_HOST = 'localhost'.freeze
+    DEFAULT_PORT = 8125
+
     attr_reader :socket, :host, :port, :tags_enabled
 
-    def initialize(host: 'localhost', port: 8125, tags_enabled: true)
+    def initialize(host: DEFAULT_HOST, port: DEFAULT_PORT, tags_enabled: true)
       @socket = UDPSocket.new
       @host = host
       @port = port
