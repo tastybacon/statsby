@@ -21,19 +21,19 @@ module Statsby
       socket.send(message, 0, host, port)
     end
 
-    def send_counter(metric_name, value, tags = {})
+    def counter(metric_name, value, tags = {})
       send_message(metric_name, value, 'c', tags)
     end
 
-    def send_gauge(metric_name, value)
+    def gauge(metric_name, value)
       send_message(metric_name, value, 'g')
     end
 
-    def send_timing(metric_name, value)
+    def timing(metric_name, value)
       send_message(metric_name, value, 'ms')
     end
 
-    def send_set(metric_name, value)
+    def set(metric_name, value)
       send_message(metric_name, value, 's')
     end
 
