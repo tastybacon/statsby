@@ -26,20 +26,20 @@ module Statsby
       socket.send(message, 0, host, port)
     end
 
-    def counter(metric_name, value, tags = {})
-      send_message(format_message(metric_name, value, 'c', tags))
+    def counter(metric_name, value, local_tags = {})
+      send_message(format_message(metric_name, value, 'c', local_tags))
     end
 
-    def gauge(metric_name, value)
-      send_message(format_message(metric_name, value, 'g', tags))
+    def gauge(metric_name, value, local_tags = {})
+      send_message(format_message(metric_name, value, 'g', local_tags))
     end
 
-    def timing(metric_name, value)
-      send_message(format_message(metric_name, value, 'ms', tags))
+    def timing(metric_name, value, local_tags = {})
+      send_message(format_message(metric_name, value, 'ms', local_tags))
     end
 
-    def set(metric_name, value)
-      send_message(format_message(metric_name, value, 's', tags))
+    def set(metric_name, value, local_tags = {})
+      send_message(format_message(metric_name, value, 's', local_tags))
     end
 
     def format_tags(message_tags = {})
