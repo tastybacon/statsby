@@ -1,0 +1,4 @@
+# Top-level RSpec blocks can get quite long
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*.rb

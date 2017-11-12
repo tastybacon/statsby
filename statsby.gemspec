@@ -6,10 +6,13 @@ Gem::Specification.new do |s|
   s.description = 'A toy implementation of a StatsD client in Ruby'
   s.authors     = ['tastybacon']
   s.email       = 'tastycuredpork@gmail.com'
-  s.files       = ['lib/statsby.rb', 'lib/statsby/client.rb']
-  s.homepage    =
-    'https://github.com/tastybacon/statsby'
-  s.license = 'MIT'
+  s.files       = %w[
+    lib/statsby.rb
+    lib/statsby/client.rb
+    lib/statsby/tag_set.rb
+  ]
+  s.homepage    = 'https://github.com/tastybacon/statsby'
+  s.license     = 'MIT'
 
   s.add_development_dependency 'pry', '~>0.11'
   s.add_development_dependency 'rspec', '~>3.0'

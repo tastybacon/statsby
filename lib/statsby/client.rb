@@ -38,7 +38,7 @@ module Statsby
     end
 
     def format_tags(tags)
-      tags.map { |key, value| "#{key}=#{value}" }.join(',') if tags_enabled
+      ",#{Statsby::TagSet.from_hash(tags)}" if tags_enabled
     end
   end
 end
