@@ -6,17 +6,23 @@ module Statsby
     DEFAULT_HOST = 'localhost'.freeze
     DEFAULT_PORT = 8125
 
-    attr_reader :socket, :host, :port, :tags_enabled
+    attr_reader :socket, :host, :port, :tags, :tags_enabled
 
-    def initialize(host: DEFAULT_HOST, port: DEFAULT_PORT, tags_enabled: true)
+    def initialize(
+      host: DEFAULT_HOST,
+      port: DEFAULT_PORT,
+      tags: {},
+      tags_enabled: true
+    )
       @socket = UDPSocket.new
       @host = host
       @port = port
+      @tags = Statsby::TagSet.from_hash(tags)
       @tags_enabled = tags_enabled
     end
 
-    def send_message(metric_name, value, type, tags = {})
-      message = "#{metric_name}#{format_tags(tags)}:#{value}|#{type}"
+    def send_message(metric_name, value, type, message_tags = {})
+      message = "#{metric_name}#{format_tags(message_tags)}:#{value}|#{type}"
       puts "Sending #{message}"
       socket.send(message, 0, host, port)
     end
@@ -37,8 +43,9 @@ module Statsby
       send_message(metric_name, value, 's')
     end
 
-    def format_tags(tags)
-      ",#{Statsby::TagSet.from_hash(tags)}" if tags_enabled
+    def format_tags(message_tags = {})
+      combined_tags = tags.merge(message_tags)
+      ",#{combined_tags}" if tags_enabled && !combined_tags.empty?
     end
   end
 end
