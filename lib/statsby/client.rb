@@ -21,31 +21,34 @@ module Statsby
       @tags_enabled = tags_enabled
     end
 
-    def send_message(metric_name, value, type, message_tags = {})
-      message = "#{metric_name}#{format_tags(message_tags)}:#{value}|#{type}"
+    def send_message(message)
       puts "Sending #{message}"
       socket.send(message, 0, host, port)
     end
 
     def counter(metric_name, value, tags = {})
-      send_message(metric_name, value, 'c', tags)
+      send_message(format_message(metric_name, value, 'c', tags))
     end
 
     def gauge(metric_name, value)
-      send_message(metric_name, value, 'g')
+      send_message(format_message(metric_name, value, 'g', tags))
     end
 
     def timing(metric_name, value)
-      send_message(metric_name, value, 'ms')
+      send_message(format_message(metric_name, value, 'ms', tags))
     end
 
     def set(metric_name, value)
-      send_message(metric_name, value, 's')
+      send_message(format_message(metric_name, value, 's', tags))
     end
 
     def format_tags(message_tags = {})
       combined_tags = tags.merge(message_tags)
       ",#{combined_tags}" if tags_enabled && !combined_tags.empty?
+    end
+
+    def format_message(metric_name, value, type, message_tags = {})
+      "#{metric_name}#{format_tags(message_tags)}:#{value}|#{type}"
     end
   end
 end
