@@ -9,6 +9,7 @@ Gem::Specification.new do |s|
   s.files       = %w[
     lib/statsby.rb
     lib/statsby/client.rb
+    lib/statsby/context.rb
     lib/statsby/tag_set.rb
   ]
   s.homepage    = 'https://github.com/tastybacon/statsby'

@@ -50,5 +50,9 @@ module Statsby
     def format_message(metric_name, value, type, message_tags = {})
       "#{metric_name}#{format_tags(message_tags)}:#{value}|#{type}"
     end
+
+    def subcontext(tags = {})
+      Statsby::Context.new(self, tags)
+    end
   end
 end
