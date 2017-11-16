@@ -6,6 +6,9 @@ A lightweight statsd client built in Ruby. This is in early development and thin
 ```ruby
 client = Statsby::Client.new #defaults to sending metrics to localhost:8125
 client.gauge('my_gauge', 5)
+
+# Connect to a different host and port:
+client = Statsby::Client.new(host: 'example.com', port 23456)
 ```
 
 ### Metric Types
@@ -97,7 +100,7 @@ client.gauge('my_gauge', 5, 'client-tag' => 'overwridden')
 
 ## TODO
 
-- Documentation (*ha)
+- Documentation (ha)
 - Proper Logging
 - Default tags (e.g. host, ip, etc.)
 - Sampling
