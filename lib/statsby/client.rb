@@ -22,7 +22,6 @@ module Statsby
     end
 
     def send_message(message)
-      puts "Sending #{message}"
       socket.send(message, 0, host, port)
     end
 
