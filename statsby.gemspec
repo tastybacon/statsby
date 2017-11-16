@@ -1,6 +1,10 @@
+lib = File.expand_path('../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require 'statsby/version'
+
 Gem::Specification.new do |s|
   s.name        = 'statsby'
-  s.version     = '0.0.1'
+  s.version     = ::Statsby::VERSION
   s.date        = '2017-11-02'
   s.summary     = 'StatsD Ruby Client'
   s.description = 'A toy implementation of a StatsD client in Ruby'
@@ -11,6 +15,7 @@ Gem::Specification.new do |s|
     lib/statsby/client.rb
     lib/statsby/context.rb
     lib/statsby/tag_set.rb
+    lib/statsby/version.rb
   ]
   s.homepage    = 'https://github.com/tastybacon/statsby'
   s.license     = 'MIT'
