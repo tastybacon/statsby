@@ -1,28 +1,22 @@
-require 'socket'
+require 'statsby/udp_metrics_writer'
 
 module Statsby
-  # Use a Statsby::Client to send metrics over UDP to a StatsD server
+  # Use a Statsby::Client to send metrics to a StatsD server
   class Client
-    DEFAULT_HOST = 'localhost'.freeze
-    DEFAULT_PORT = 8125
-
-    attr_reader :socket, :host, :port, :tags, :tags_enabled
+    attr_reader :metrics_writer, :tags, :tags_enabled
 
     def initialize(
-      host: DEFAULT_HOST,
-      port: DEFAULT_PORT,
+      metrics_writer: UDPMetricsWriter.new,
       tags: {},
       tags_enabled: true
     )
-      @socket = UDPSocket.new
-      @host = host
-      @port = port
-      @tags = Statsby::TagSet.from_hash(tags)
-      @tags_enabled = tags_enabled
+      self.metrics_writer = metrics_writer
+      self.tags = Statsby::TagSet.from_hash(tags)
+      self.tags_enabled = tags_enabled
     end
 
     def send_message(message)
-      socket.send(message, 0, host, port)
+      metrics_writer.write(message)
     end
 
     def counter(metric_name, value, local_tags = {})
@@ -53,5 +47,9 @@ module Statsby
     def subcontext(tags = {})
       Statsby::Context.new(self, tags)
     end
+
+    private
+
+    attr_writer :metrics_writer, :tags, :tags_enabled
   end
 end
