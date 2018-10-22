@@ -1,10 +1,22 @@
 require 'statsby'
+require 'shared/a_client'
 RSpec.describe Statsby::Context do
-  let(:default_client) { Statsby::Client.new }
-  let(:tagless_client) { Statsby::Client.new(tags_enabled: false) }
-  let(:tagged_client) do
-    Statsby::Client.new(tags: { 'key' => 'value', 'key2' => 'value2' })
+  let(:default_client) do
+    client = Statsby::Client.new
+    client.subcontext
   end
+
+  let(:tagless_client) do
+    client = Statsby::Client.new(tags_enabled: false)
+    client.subcontext
+  end
+
+  let(:tagged_client) do
+    client = Statsby::Client.new(tags: { 'key' => 'value', 'key2' => 'value2' })
+    client.subcontext
+  end
+
+  it_behaves_like 'a client'
 
   describe '#format_tags' do
     context 'when built on a tagless supercontext' do
