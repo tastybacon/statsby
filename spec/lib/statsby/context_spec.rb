@@ -1,8 +1,10 @@
 require 'statsby'
 require 'shared/a_client'
 RSpec.describe Statsby::Context do
+  let(:test_io) { StringIO.new }
+
   let(:default_client) do
-    client = Statsby::Client.new
+    client = Statsby::Client.new(metrics_writer: test_io)
     client.subcontext
   end
 

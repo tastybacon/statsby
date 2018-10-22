@@ -1,4 +1,32 @@
 RSpec.shared_examples 'a client' do
+  describe '#counter' do
+    it 'sends the right message' do
+      expect { default_client.counter(:abcd, 20) }
+        .to change { test_io.string }.from('').to('abcd:20|c')
+    end
+  end
+
+  describe '#gauge' do
+    it 'sends the right message' do
+      expect { default_client.gauge(:abcd, 20) }
+        .to change { test_io.string }.from('').to('abcd:20|g')
+    end
+  end
+
+  describe '#timing' do
+    it 'sends the right message' do
+      expect { default_client.timing(:abcd, 20) }
+        .to change { test_io.string }.from('').to('abcd:20|ms')
+    end
+  end
+
+  describe '#set' do
+    it 'sends the right message' do
+      expect { default_client.set(:abcd, 20) }
+        .to change { test_io.string }.from('').to('abcd:20|s')
+    end
+  end
+
   describe '#format_tags' do
     context 'when tags are disabled' do
       it 'returns nil' do
